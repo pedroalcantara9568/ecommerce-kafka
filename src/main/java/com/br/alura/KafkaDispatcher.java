@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-public class KafkaDispatcher implements Closeable {
+public class KafkaDispatcher<O> implements Closeable {
     private final KafkaProducer<String, String> producer;
 
     KafkaDispatcher() {
