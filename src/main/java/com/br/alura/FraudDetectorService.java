@@ -2,28 +2,33 @@ package com.br.alura;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 public class FraudDetectorService {
     public static void main(String[] args) {
         var fraudService = new FraudDetectorService();
-        var service = new KafkaService(EmailService.class.getSimpleName(),"ECOMMERCE_NEW_ORDER", fraudService::parse);
-        service.run();
+        try (var service = new KafkaService
+                (EmailService.class.getSimpleName(),
+                        "ECOMMERCE_NEW_ORDER",
+                        fraudService::parse, Order.class,
+                        new HashMap<String, String>())) {
+            service.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
-    private void parse(ConsumerRecord<String, String> record) {
+    private void parse(ConsumerRecord<String, Order> record) throws InterruptedException {
         System.out.println("------------------------------");
         System.out.println("Processing new order");
         System.out.println(record.key());
         System.out.println(record.value());
         System.out.println(record.partition());
         System.out.println(record.offset());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            // ignoring because its a simulation
-            e.printStackTrace();
-        }
+        Thread.sleep(500);
         System.out.println("Order processed");
     }
 
