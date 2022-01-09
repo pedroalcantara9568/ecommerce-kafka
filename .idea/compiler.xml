@@ -10,12 +10,8 @@
         <module name="common-kafka" />
         <module name="logservice" />
         <module name="service-new-order" />
-        <module name="ecommerce" />
         <module name="emailservice" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ecommerce" target="16" />
-    </bytecodeTargetLevel>
   </component>
 </project>

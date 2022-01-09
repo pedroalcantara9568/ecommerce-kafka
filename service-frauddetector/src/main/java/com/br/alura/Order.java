@@ -3,7 +3,8 @@ package com.br.alura;
 import java.math.BigDecimal;
 
 public class Order {
-    private final String userId, orderId;
+    private final String userId;
+    private final String orderId;
     private final BigDecimal amount;
 
     public Order(String userId, String orderId, BigDecimal amount) {
@@ -11,6 +12,7 @@ public class Order {
         this.orderId = orderId;
         this.amount = amount;
     }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -20,15 +22,16 @@ public class Order {
                 '}';
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public String getOrderId() {
-        return orderId;
+    public String getUserId() {
+    return userId;
     }
 
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public boolean isFraud(Order order) {
+        return order.getAmount().compareTo(new BigDecimal("4500")) >= 0;
     }
 }

@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 public class KafkaService<T> implements Closeable {
@@ -36,7 +37,7 @@ public class KafkaService<T> implements Closeable {
         this.consumer = new KafkaConsumer<>(consumerProperties(type, groupId, properties));
     }
 
-    public void run() {
+    public void run() throws ExecutionException, InterruptedException {
         while(true){
             var records=consumer.poll(Duration.ofMillis(100));
             if(!records.isEmpty()){
