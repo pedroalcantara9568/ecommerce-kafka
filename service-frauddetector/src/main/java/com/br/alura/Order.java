@@ -34,4 +34,6 @@ public class Order {
     public boolean isFraud(Order order) {
         return order.getAmount().compareTo(new BigDecimal("4500")) >= 0;
     }
+
+    public String getOrderId() {return  orderId;    }
 }

@@ -6,6 +6,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 public class LogService {
@@ -18,6 +19,10 @@ public class LogService {
                         logService::parse, String.class,
                         Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
             service.run();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
 

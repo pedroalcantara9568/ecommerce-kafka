@@ -1,5 +1,8 @@
 package com.br.alura;
 
+import com.br.alura.KafkaDispatcher;
+import com.br.alura.KafkaService;
+import com.br.alura.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.io.IOException;
@@ -8,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 
 public class FraudDetectorService {
 
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         var myService = new FraudDetectorService();
         try (var service = new KafkaService<>(FraudDetectorService.class.getSimpleName(),
                 "ECOMMERCE_NEW_ORDER",
@@ -16,6 +19,8 @@ public class FraudDetectorService {
                 Order.class,
                 Map.of())) {
             service.run();
+        } catch (IOException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -37,10 +42,10 @@ public class FraudDetectorService {
         }
         if (order.isFraud(order)) {
             System.out.println("Order is a fraud");
-            dispatcher.send("ECOMMERCE_ORDER_REJECTED", order.getUserId(), order);
+            dispatcher.send("ECOMMERCE_ORDER_REJECTED", order.getOrderId(), order);
         } else {
             System.out.println("Order was accepted");
-            dispatcher.send("ECOMMERCE_ORDER_APPROVED", order.getUserId(), order);
+            dispatcher.send("ECOMMERCE_ORDER_APPROVED", order.getOrderId(), order);
         }
     }
 
