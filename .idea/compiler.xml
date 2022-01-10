@@ -11,6 +11,7 @@
         <module name="logservice" />
         <module name="service-new-order" />
         <module name="emailservice" />
+        <module name="service-users" />
       </profile>
     </annotationProcessing>
   </component>
