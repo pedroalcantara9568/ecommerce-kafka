@@ -11,6 +11,11 @@ import java.util.concurrent.ExecutionException;
 
 public class CreateUserService {
 
+    CreateUserService()
+    {
+
+    }
+
     public static void main(String[] args) {
         var userService = new CreateUserService();
         try (var service = new KafkaService<>(CreateUserService.class.getSimpleName(),

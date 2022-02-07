@@ -1,4 +1,4 @@
-package br.com.alura.ecommerce;
+package com.br.alura;
 
 import com.br.alura.KafkaDispatcher;
 import com.br.alura.Order;
